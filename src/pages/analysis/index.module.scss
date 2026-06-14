@@ -277,3 +277,276 @@
   color: $color-text-white;
   font-weight: $font-weight-medium;
 }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.modalContent {
+  width: 100%;
+  max-height: 90vh;
+  background-color: $color-bg-page;
+  border-radius: $radius-xl $radius-xl 0 0;
+  padding: $spacing-lg;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+}
+
+.modalTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.closeBtn {
+  padding: $spacing-xs $spacing-md;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: $radius-button;
+}
+
+.closeBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.formSection {
+  margin-bottom: $spacing-lg;
+}
+
+.formSectionTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+  display: block;
+}
+
+.stepsListHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.stepsListTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.addStepBtn {
+  padding: $spacing-xs $spacing-md;
+  background: linear-gradient(135deg, $color-primary, $color-primary-light);
+  border-radius: $radius-button;
+}
+
+.addStepBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.emptySteps {
+  padding: $spacing-xl 0;
+  text-align: center;
+  background-color: $color-bg-card;
+  border-radius: $radius-md;
+}
+
+.emptyStepsText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.stepsList {
+  gap: $spacing-sm;
+  display: flex;
+  flex-direction: column;
+}
+
+.stepListItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  background-color: $color-bg-card;
+  border-radius: $radius-md;
+}
+
+.stepIndexBadge {
+  width: 56rpx;
+  height: 56rpx;
+  background: linear-gradient(135deg, $color-primary, $color-primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepIndexText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+}
+
+.stepListItemContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepListItemDesc {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stepListItemMeta {
+  margin-top: 4rpx;
+}
+
+.stepListItemMetaText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.stepListItemActions {
+  display: flex;
+  gap: $spacing-xs;
+  flex-shrink: 0;
+}
+
+.stepEditBtn {
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba(24, 144, 255, 0.15);
+  border-radius: $radius-sm;
+}
+
+.stepEditBtnText {
+  font-size: $font-size-xs;
+  color: $color-secondary-light;
+}
+
+.stepDeleteBtn {
+  padding: $spacing-xs $spacing-sm;
+  background-color: rgba(245, 63, 63, 0.15);
+  border-radius: $radius-sm;
+}
+
+.stepDeleteBtnText {
+  font-size: $font-size-xs;
+  color: $color-error;
+}
+
+.formGroup {
+  margin-bottom: $spacing-md;
+}
+
+.formLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 $spacing-md;
+  background-color: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  box-sizing: border-box;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 120rpx;
+  padding: $spacing-md;
+  background-color: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  box-sizing: border-box;
+  line-height: $line-height-normal;
+}
+
+.formRow {
+  display: flex;
+  gap: $spacing-md;
+  align-items: center;
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.sliderLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  width: 120rpx;
+  flex-shrink: 0;
+}
+
+.slider {
+  flex: 1;
+}
+
+.tagGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.tagItem {
+  padding: $spacing-xs $spacing-md;
+  background-color: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+}
+
+.tagItemActive {
+  background: linear-gradient(135deg, $color-primary, $color-primary-light);
+  border-color: transparent;
+}
+
+.tagItemText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  .tagItemActive & {
+    color: $color-text-white;
+  }
+}
+
+.modalFooter {
+  display: flex;
+  gap: $spacing-md;
+  padding-top: $spacing-md;
+  border-top: 2rpx solid $color-border;
+  margin-top: $spacing-lg;
+}

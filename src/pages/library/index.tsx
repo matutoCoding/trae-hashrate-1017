@@ -1,23 +1,40 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, ScrollView, Input } from '@tarojs/components';
+import { View, Text, ScrollView, Input, Textarea } from '@tarojs/components';
 import classnames from 'classnames';
+import Taro from '@tarojs/taro';
 import { useBoulderingStore } from '@/store/useBoulderingStore';
-import { MovementBeta } from '@/types/training';
+import { MovementBeta, BetaStep } from '@/types/training';
+import { Route } from '@/types/bouldering';
 import BetaCard from '@/components/BetaCard';
 import DifficultyBadge from '@/components/DifficultyBadge';
+import RouteCard from '@/components/RouteCard';
 import styles from './index.module.scss';
 
 type DifficultyFilter = 'all' | 'beginner' | 'intermediate' | 'advanced' | 'expert';
 type BodyTypeFilter = 'all' | 'short' | 'average' | 'tall';
 type StyleFilter = 'all' | 'power' | 'technique' | 'endurance' | 'dynamic';
 
+const generateId = () => `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
 const LibraryPage: React.FC = () => {
-  const { betaLibrary } = useBoulderingStore();
+  const { betaLibrary, routes, addBeta, currentUser } = useBoulderingStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>('all');
   const [bodyTypeFilter, setBodyTypeFilter] = useState<BodyTypeFilter>('all');
   const [styleFilter, setStyleFilter] = useState<StyleFilter>('all');
   const [selectedBeta, setSelectedBeta] = useState<MovementBeta | null>(null);
+  const [showNewBeta, setShowNewBeta] = useState(false);
+  const [showRouteSelect, setShowRouteSelect] = useState(false);
+  const [selectedRoute, setSelectedRoute] = useState<Route | null>(null);
+  const [betaTitle, setBetaTitle] = useState('');
+  const [betaTags, setBetaTags] = useState('');
+  const [betaDifficulty, setBetaDifficulty] = useState<'beginner' | 'intermediate' | 'advanced' | 'expert'>('intermediate');
+  const [betaBodyType, setBetaBodyType] = useState<('short' | 'average' | 'tall')[]>(['average']);
+  const [betaStyle, setBetaStyle] = useState<('power' | 'technique' | 'endurance' | 'dynamic')[]>(['technique']);
+  const [betaSteps, setBetaSteps] = useState<BetaStep[]>([]);
+  const [betaOverallTips, setBetaOverallTips] = useState('');
+  const [showStepForm, setShowStepForm] = useState(false);
+  const [editingStep, setEditingStep] = useState<Partial<BetaStep> | null>(null);
 
   const filteredBetas = useMemo(() => {
     return betaLibrary.filter(beta => {
@@ -85,6 +102,137 @@ const LibraryPage: React.FC = () => {
     beginner: '入门级', intermediate: '中级', advanced: '高级', expert: '专家级'
   };
 
+  const handleOpenNewBeta = () => {
+    setSelectedRoute(null);
+    setBetaTitle('');
+    setBetaTags('');
+    setBetaDifficulty('intermediate');
+    setBetaBodyType(['average']);
+    setBetaStyle(['technique']);
+    setBetaSteps([]);
+    setBetaOverallTips('');
+    setShowNewBeta(true);
+  };
+
+  const handleSelectRoute = (route: Route) => {
+    setSelectedRoute(route);
+    setShowRouteSelect(false);
+  };
+
+  const toggleBodyType = (type: 'short' | 'average' | 'tall') => {
+    if (betaBodyType.includes(type)) {
+      setBetaBodyType(betaBodyType.filter(t => t !== type));
+    } else {
+      setBetaBodyType([...betaBodyType, type]);
+    }
+  };
+
+  const toggleStyle = (style: 'power' | 'technique' | 'endurance' | 'dynamic') => {
+    if (betaStyle.includes(style)) {
+      setBetaStyle(betaStyle.filter(s => s !== style));
+    } else {
+      setBetaStyle([...betaStyle, style]);
+    }
+  };
+
+  const handleAddStep = () => {
+    setEditingStep({
+      index: betaSteps.length + 1,
+      description: '',
+      leftHand: '',
+      rightHand: '',
+      leftFoot: '',
+      rightFoot: '',
+      keyTip: '',
+      commonMistake: ''
+    });
+    setShowStepForm(true);
+  };
+
+  const handleEditStep = (step: BetaStep) => {
+    setEditingStep({ ...step });
+    setShowStepForm(true);
+  };
+
+  const handleDeleteStep = (index: number) => {
+    const newSteps = betaSteps.filter(s => s.index !== index).map((s, i) => ({ ...s, index: i + 1 }));
+    setBetaSteps(newSteps);
+  };
+
+  const handleSaveStep = () => {
+    if (!editingStep || !editingStep.description?.trim()) {
+      Taro.showToast({ title: '请填写动作描述', icon: 'none' });
+      return;
+    }
+
+    const step: BetaStep = {
+      index: editingStep.index || betaSteps.length + 1,
+      description: editingStep.description,
+      leftHand: editingStep.leftHand || undefined,
+      rightHand: editingStep.rightHand || undefined,
+      leftFoot: editingStep.leftFoot || undefined,
+      rightFoot: editingStep.rightFoot || undefined,
+      keyTip: editingStep.keyTip || undefined,
+      commonMistake: editingStep.commonMistake || undefined
+    };
+
+    if (editingStep.index && betaSteps.some(s => s.index === editingStep.index)) {
+      const newSteps = betaSteps.map(s => s.index === editingStep.index ? step : s);
+      setBetaSteps(newSteps);
+    } else {
+      setBetaSteps([...betaSteps, step]);
+    }
+
+    setShowStepForm(false);
+    setEditingStep(null);
+  };
+
+  const handleSaveBeta = () => {
+    if (!selectedRoute) {
+      Taro.showToast({ title: '请选择线路', icon: 'none' });
+      return;
+    }
+    if (!betaTitle.trim()) {
+      Taro.showToast({ title: '请填写Beta标题', icon: 'none' });
+      return;
+    }
+    if (betaSteps.length === 0) {
+      Taro.showToast({ title: '请至少添加一个步骤', icon: 'none' });
+      return;
+    }
+    if (betaBodyType.length === 0) {
+      Taro.showToast({ title: '请选择至少一个适合身高', icon: 'none' });
+      return;
+    }
+    if (betaStyle.length === 0) {
+      Taro.showToast({ title: '请选择至少一个攀爬风格', icon: 'none' });
+      return;
+    }
+
+    const tags = betaTags.split(',').map(t => t.trim()).filter(t => t);
+
+    const beta: MovementBeta = {
+      id: generateId(),
+      routeId: selectedRoute.id,
+      routeName: selectedRoute.name,
+      routeGrade: selectedRoute.grade,
+      title: betaTitle.trim(),
+      author: currentUser.name || '匿名用户',
+      createdAt: new Date().toLocaleDateString('zh-CN'),
+      tags,
+      steps: betaSteps.sort((a, b) => a.index - b.index),
+      overallTips: betaOverallTips.trim(),
+      likes: 0,
+      difficulty: betaDifficulty,
+      bodyType: betaBodyType,
+      style: betaStyle
+    };
+
+    addBeta(beta);
+    setShowNewBeta(false);
+    Taro.showToast({ title: 'Beta保存成功', icon: 'success' });
+  };
+
   console.log('[Library] Showing', filteredBetas.length, 'of', betaLibrary.length, 'betas');
 
   return (
@@ -103,6 +251,10 @@ const LibraryPage: React.FC = () => {
           value={searchQuery}
           onInput={e => setSearchQuery(e.detail.value)}
         />
+      </View>
+
+      <View className={styles.addBetaBtn} onClick={handleOpenNewBeta}>
+        <Text className={styles.addBetaBtnText}>+ 保存经典Beta</Text>
       </View>
 
       <View className={styles.filterSection}>
@@ -286,6 +438,281 @@ const LibraryPage: React.FC = () => {
                   )}
                 </View>
               ))}
+            </View>
+          </ScrollView>
+        </View>
+      )}
+
+      {showNewBeta && (
+        <View className={styles.modalOverlay} onClick={() => setShowNewBeta(false)}>
+          <ScrollView
+            className={styles.modalContent}
+            onClick={e => e.stopPropagation && (e as any).stopPropagation()}
+          >
+            <View className={styles.modalHeader}>
+              <Text className={styles.modalTitle}>保存经典Beta</Text>
+              <View className={styles.closeBtn} onClick={() => setShowNewBeta(false)}>
+                <Text className={styles.closeBtnText}>关闭</Text>
+              </View>
+            </View>
+
+            <View className={styles.formSection}>
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>选择线路 *</Text>
+                <View className={styles.routeSelector} onClick={() => setShowRouteSelect(true)}>
+                  {selectedRoute ? (
+                    <>
+                      <Text className={styles.routeSelectorName}>{selectedRoute.name}</Text>
+                      <Text className={styles.routeSelectorGrade}>[{selectedRoute.grade}]</Text>
+                    </>
+                  ) : (
+                    <Text className={styles.routeSelectorPlaceholder}>点击选择线路</Text>
+                  )}
+                </View>
+              </View>
+
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>Beta标题 *</Text>
+                <Input
+                  className={styles.input}
+                  placeholder="例如：小个子友好版动态起步"
+                  value={betaTitle}
+                  onInput={e => setBetaTitle(e.detail.value)}
+                />
+              </View>
+
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>标签（用逗号分隔）</Text>
+                <Input
+                  className={styles.input}
+                  placeholder="例如：动态, 小个子, 起步技巧"
+                  value={betaTags}
+                  onInput={e => setBetaTags(e.detail.value)}
+                />
+              </View>
+
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>难度级别</Text>
+                <View className={styles.tagGrid}>
+                  {(['beginner', 'intermediate', 'advanced', 'expert'] as const).map(diff => (
+                    <View
+                      key={diff}
+                      className={`${styles.tagItem} ${betaDifficulty === diff ? styles.tagItemActive : ''}`}
+                      onClick={() => setBetaDifficulty(diff)}
+                    >
+                      <Text className={styles.tagItemText}>{difficultyLabel[diff]}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>适合身高（可多选）</Text>
+                <View className={styles.tagGrid}>
+                  {(['short', 'average', 'tall'] as const).map(type => (
+                    <View
+                      key={type}
+                      className={`${styles.tagItem} ${betaBodyType.includes(type) ? styles.tagItemActive : ''}`}
+                      onClick={() => toggleBodyType(type)}
+                    >
+                      <Text className={styles.tagItemText}>{getBodyTypeLabel(type)}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>攀爬风格（可多选）</Text>
+                <View className={styles.tagGrid}>
+                  {(['power', 'technique', 'endurance', 'dynamic'] as const).map(style => (
+                    <View
+                      key={style}
+                      className={`${styles.tagItem} ${betaStyle.includes(style) ? styles.tagItemActive : ''}`}
+                      onClick={() => toggleStyle(style)}
+                    >
+                      <Text className={styles.tagItemText}>{getStyleLabel(style)}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+
+              <View className={styles.stepsListHeader}>
+                <Text className={styles.stepsListTitle}>动作步骤 ({betaSteps.length})</Text>
+                <View className={styles.addStepBtn} onClick={handleAddStep}>
+                  <Text className={styles.addStepBtnText}>+ 添加步骤</Text>
+                </View>
+              </View>
+
+              {betaSteps.length === 0 ? (
+                <View className={styles.emptySteps}>
+                  <Text className={styles.emptyStepsText}>暂无步骤，点击上方按钮添加</Text>
+                </View>
+              ) : (
+                <View className={styles.stepsList}>
+                  {betaSteps.map(step => (
+                    <View key={step.index} className={styles.stepListItem}>
+                      <View className={styles.stepIndexBadge}>
+                        <Text className={styles.stepIndexText}>{step.index}</Text>
+                      </View>
+                      <View className={styles.stepListItemContent}>
+                        <Text className={styles.stepListItemDesc}>{step.description}</Text>
+                        {(step.keyTip && (
+                          <Text className={styles.stepListItemTip}>💡 {step.keyTip}</Text>
+                        ))}
+                      </View>
+                      <View className={styles.stepListItemActions}>
+                        <View className={styles.stepEditBtn} onClick={() => handleEditStep(step)}>
+                          <Text className={styles.stepEditBtnText}>编辑</Text>
+                        </View>
+                        <View className={styles.stepDeleteBtn} onClick={() => handleDeleteStep(step.index)}>
+                          <Text className={styles.stepDeleteBtnText}>删除</Text>
+                        </View>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>核心技巧总结</Text>
+                <Textarea
+                  className={styles.textarea}
+                  placeholder="例如：起步时重心要低，注意脚点顺序很重要..."
+                  value={betaOverallTips}
+                  onInput={e => setBetaOverallTips(e.detail.value)}
+                />
+              </View>
+            </View>
+
+            <View className={styles.modalFooter}>
+              <View className={`${styles.actionBtn} ${styles.secondary}`} onClick={() => setShowNewBeta(false)}>
+                <Text className={styles.actionBtnText}>取消</Text>
+              </View>
+              <View className={`${styles.actionBtn} ${styles.primary}`} onClick={handleSaveBeta}>
+                <Text className={styles.actionBtnText}>保存Beta</Text>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+      )}
+
+      {showRouteSelect && (
+        <View className={styles.modalOverlay} onClick={() => setShowRouteSelect(false)}>
+          <ScrollView
+            className={styles.modalContent}
+            onClick={e => e.stopPropagation && (e as any).stopPropagation()}
+          >
+            <View className={styles.modalHeader}>
+              <Text className={styles.modalTitle}>选择线路</Text>
+              <View className={styles.closeBtn} onClick={() => setShowRouteSelect(false)}>
+                <Text className={styles.closeBtnText}>关闭</Text>
+              </View>
+            </View>
+            {routes.map(route => (
+              <View key={route.id} onClick={() => handleSelectRoute(route)}>
+                <RouteCard route={route} />
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      )}
+
+      {showStepForm && editingStep && (
+        <View className={styles.modalOverlay} onClick={() => setShowStepForm(false)}>
+          <ScrollView
+            className={styles.modalContent}
+            onClick={e => e.stopPropagation && (e as any).stopPropagation()}
+          >
+            <View className={styles.modalHeader}>
+              <Text className={styles.modalTitle}>
+                {editingStep.index && betaSteps.some(s => s.index === editingStep.index) ? '编辑步骤' : `第${editingStep.index}步`}
+              </Text>
+              <View className={styles.closeBtn} onClick={() => setShowStepForm(false)}>
+                <Text className={styles.closeBtnText}>关闭</Text>
+              </View>
+            </View>
+
+            <View className={styles.formSection}>
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>动作描述 *</Text>
+                <Textarea
+                  className={styles.textarea}
+                  placeholder="例如：左手抓大开口点，右脚踩高点"
+                  value={editingStep.description || ''}
+                  onInput={e => setEditingStep({ ...editingStep, description: e.detail.value })}
+                />
+              </View>
+
+              <View className={styles.formRow}>
+                <View className={styles.formGroup} style={{ flex: 1 }}>
+                  <Text className={styles.formLabel}>左手位置</Text>
+                  <Input
+                    className={styles.input}
+                    placeholder="如：大开口点"
+                    value={editingStep.leftHand || ''}
+                    onInput={e => setEditingStep({ ...editingStep, leftHand: e.detail.value })}
+                  />
+                </View>
+                <View className={styles.formGroup} style={{ flex: 1 }}>
+                  <Text className={styles.formLabel}>右手位置</Text>
+                  <Input
+                    className={styles.input}
+                    placeholder="如：小捏点"
+                    value={editingStep.rightHand || ''}
+                    onInput={e => setEditingStep({ ...editingStep, rightHand: e.detail.value })}
+                  />
+                </View>
+              </View>
+
+              <View className={styles.formRow}>
+                <View className={styles.formGroup} style={{ flex: 1 }}>
+                  <Text className={styles.formLabel}>左脚位置</Text>
+                  <Input
+                    className={styles.input}
+                    placeholder="如：高脚点"
+                    value={editingStep.leftFoot || ''}
+                    onInput={e => setEditingStep({ ...editingStep, leftFoot: e.detail.value })}
+                  />
+                </View>
+                <View className={styles.formGroup} style={{ flex: 1 }}>
+                  <Text className={styles.formLabel}>右脚位置</Text>
+                  <Input
+                    className={styles.input}
+                    placeholder="如：摩擦点"
+                    value={editingStep.rightFoot || ''}
+                    onInput={e => setEditingStep({ ...editingStep, rightFoot: e.detail.value })}
+                  />
+                </View>
+              </View>
+
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>关键技巧</Text>
+                <Textarea
+                  className={styles.textarea}
+                  placeholder="例如：注意转肩，重心移向左脚"
+                  value={editingStep.keyTip || ''}
+                  onInput={e => setEditingStep({ ...editingStep, keyTip: e.detail.value })}
+                />
+              </View>
+
+              <View className={styles.formGroup}>
+                <Text className={styles.formLabel}>常见错误</Text>
+                <Textarea
+                  className={styles.textarea}
+                  placeholder="例如：容易重心太靠后，失去平衡"
+                  value={editingStep.commonMistake || ''}
+                  onInput={e => setEditingStep({ ...editingStep, commonMistake: e.detail.value })}
+                />
+              </View>
+            </View>
+
+            <View className={styles.modalFooter}>
+              <View className={`${styles.actionBtn} ${styles.secondary}`} onClick={() => setShowStepForm(false)}>
+                <Text className={styles.actionBtnText}>取消</Text>
+              </View>
+              <View className={`${styles.actionBtn} ${styles.primary}`} onClick={handleSaveStep}>
+                <Text className={styles.actionBtnText}>保存步骤</Text>
+              </View>
             </View>
           </ScrollView>
         </View>
