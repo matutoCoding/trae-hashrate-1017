@@ -1,0 +1,363 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  padding: $spacing-lg;
+  padding-bottom: 180rpx;
+  box-sizing: border-box;
+}
+
+.pageHeader {
+  margin-bottom: $spacing-lg;
+}
+
+.pageTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.pageSubtitle {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+.statCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 48rpx;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  margin-bottom: 4rpx;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.weaknessCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+.weaknessTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.weaknessBarRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.weaknessName {
+  width: 120rpx;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.weaknessBar {
+  flex: 1;
+  height: 16rpx;
+  background-color: $color-bg-hover;
+  border-radius: $radius-xs;
+  margin: 0 $spacing-sm;
+  overflow: hidden;
+}
+
+.weaknessFill {
+  height: 100%;
+  background: linear-gradient(90deg, $color-warning, $color-error);
+  border-radius: $radius-xs;
+}
+
+.weaknessCount {
+  width: 60rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  text-align: right;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.filterTag {
+  padding: $spacing-xs $spacing-md;
+  background-color: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+
+  &.active {
+    background-color: rgba(255, 107, 53, 0.2);
+    border-color: $color-primary;
+  }
+}
+
+.filterTagText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  .active & {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.fab {
+  position: fixed;
+  right: $spacing-lg;
+  bottom: 160rpx;
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(255, 107, 53, 0.4);
+  z-index: 100;
+}
+
+.fabText {
+  font-size: 56rpx;
+  color: $color-text-white;
+  font-weight: $font-weight-light;
+  line-height: 1;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.modalContent {
+  width: 100%;
+  max-height: 90vh;
+  background-color: $color-bg-page;
+  border-radius: $radius-xl $radius-xl 0 0;
+  padding: $spacing-lg;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+}
+
+.modalTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.closeBtn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-round;
+  background-color: $color-bg-card;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtnText {
+  font-size: $font-size-xl;
+  color: $color-text-secondary;
+}
+
+.formGroup {
+  margin-bottom: $spacing-lg;
+}
+
+.formLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.formInput {
+  width: 100%;
+  height: 88rpx;
+  background-color: $color-bg-input;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  padding: 0 $spacing-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  box-sizing: border-box;
+}
+
+.formTextarea {
+  width: 100%;
+  min-height: 160rpx;
+  background-color: $color-bg-input;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  box-sizing: border-box;
+}
+
+.selectorRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.selectorOption {
+  padding: $spacing-xs $spacing-md;
+  background-color: $color-bg-input;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+
+  &.selected {
+    background-color: rgba(255, 107, 53, 0.2);
+    border-color: $color-primary;
+  }
+}
+
+.selectorOptionText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  .selected & {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.slider {
+  flex: 1;
+}
+
+.sliderValue {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  min-width: 60rpx;
+  text-align: right;
+}
+
+.routeListItem {
+  background-color: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &.selected {
+    background-color: rgba(255, 107, 53, 0.1);
+    border: 2rpx solid $color-primary;
+  }
+}
+
+.routeListItemName {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.submitBtn {
+  width: 100%;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $spacing-lg;
+}
+
+.submitBtnText {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-white;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+}
+
+.emptyIcon {
+  font-size: 100rpx;
+  margin-bottom: $spacing-lg;
+}
+
+.emptyTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.emptyText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}

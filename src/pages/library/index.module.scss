@@ -1,0 +1,377 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  padding: $spacing-lg;
+  padding-bottom: 180rpx;
+  box-sizing: border-box;
+}
+
+.pageHeader {
+  margin-bottom: $spacing-lg;
+}
+
+.pageTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.pageSubtitle {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: $color-bg-card;
+  border-radius: $radius-button;
+  padding: $spacing-sm $spacing-lg;
+  margin-bottom: $spacing-lg;
+  border: 2rpx solid $color-border;
+}
+
+.searchIcon {
+  font-size: $font-size-lg;
+  margin-right: $spacing-sm;
+}
+
+.searchInput {
+  flex: 1;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background-color: transparent;
+}
+
+.filterSection {
+  margin-bottom: $spacing-md;
+}
+
+.filterLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.filterTag {
+  padding: $spacing-xs $spacing-md;
+  background-color: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+
+  &.active {
+    background-color: rgba(255, 107, 53, 0.2);
+    border-color: $color-primary;
+  }
+}
+
+.filterTagText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  .active & {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.detailModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.detailContent {
+  width: 100%;
+  max-height: 90vh;
+  background-color: $color-bg-page;
+  border-radius: $radius-xl $radius-xl 0 0;
+  padding: $spacing-lg;
+  overflow-y: auto;
+}
+
+.detailHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+}
+
+.detailTitleSection {
+  flex: 1;
+  margin-right: $spacing-md;
+}
+
+.detailTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.detailRoute {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.detailRouteName {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.closeBtn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-round;
+  background-color: $color-bg-card;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtnText {
+  font-size: $font-size-xl;
+  color: $color-text-secondary;
+}
+
+.detailMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+.detailMetaItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.detailMetaLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.detailMetaValue {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.detailTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.detailTag {
+  padding: 4rpx 12rpx;
+  background-color: rgba(255, 107, 53, 0.15);
+  border-radius: $radius-xs;
+}
+
+.detailTagText {
+  font-size: $font-size-xs;
+  color: $color-primary-light;
+}
+
+.bodyStyleTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.bodyStyleTag {
+  padding: 4rpx 12rpx;
+  background-color: rgba(0, 78, 137, 0.2);
+  border-radius: $radius-xs;
+}
+
+.bodyStyleTagText {
+  font-size: $font-size-xs;
+  color: $color-secondary-light;
+}
+
+.overallTips {
+  background-color: rgba(250, 173, 20, 0.1);
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+.overallTipsLabel {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-warning;
+  margin-bottom: $spacing-sm;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.overallTipsText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.stepsSection {
+  margin-top: $spacing-lg;
+}
+
+.stepsTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.stepCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  border-left: 6rpx solid $color-primary;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+.stepIndex {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, $color-primary, $color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-sm;
+}
+
+.stepIndexText {
+  color: $color-text-white;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+}
+
+.stepDescription {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+  flex: 1;
+}
+
+.stepBodyPosition {
+  display: flex;
+  background-color: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.positionCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.positionLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-bottom: 4rpx;
+}
+
+.positionValue {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.stepTip {
+  background-color: rgba(82, 196, 26, 0.1);
+  border-radius: $radius-md;
+  padding: $spacing-sm $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.stepTipLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-success;
+  margin-bottom: 4rpx;
+  display: block;
+}
+
+.stepTipText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.stepMistake {
+  background-color: rgba(245, 63, 63, 0.1);
+  border-radius: $radius-md;
+  padding: $spacing-sm $spacing-md;
+}
+
+.stepMistakeLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-error;
+  margin-bottom: 4rpx;
+  display: block;
+}
+
+.stepMistakeText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+}
+
+.emptyIcon {
+  font-size: 100rpx;
+  margin-bottom: $spacing-lg;
+}
+
+.emptyTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.emptyText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}

@@ -1,0 +1,93 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  background-color: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  border: 2rpx solid $color-border;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.selected {
+  border-color: $color-primary;
+  background-color: rgba(255, 107, 53, 0.1);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.holdName {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-sm;
+  border: 3rpx solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-bg-hover;
+}
+
+.nameText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.typeBadge {
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+}
+
+.typeText {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6rpx 0;
+}
+
+.label {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.value {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.difficultyBar {
+  flex: 1;
+  height: 8rpx;
+  background-color: $color-bg-hover;
+  border-radius: $radius-xs;
+  margin: 0 $spacing-sm;
+  overflow: hidden;
+}
+
+.difficultyFill {
+  height: 100%;
+  background: linear-gradient(90deg, $color-success, $color-warning, $color-error);
+  border-radius: $radius-xs;
+}
+
+.difficultyValue {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  min-width: 50rpx;
+  text-align: right;
+}

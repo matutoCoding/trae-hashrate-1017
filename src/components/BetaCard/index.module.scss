@@ -1,0 +1,166 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.header {
+  margin-bottom: $spacing-md;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-xs;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  flex: 1;
+  margin-right: $spacing-sm;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.likesIcon {
+  font-size: $font-size-md;
+}
+
+.likesCount {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.routeRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.routeName {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.difficultyTag {
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+}
+
+.difficultyText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.author {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.date {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-left: auto;
+}
+
+.tagsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.tag {
+  background-color: rgba(255, 107, 53, 0.15);
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+}
+
+.tagText {
+  font-size: $font-size-xs;
+  color: $color-primary-light;
+}
+
+.bodyTypesRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.bodyLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.bodyTag {
+  background-color: rgba(0, 78, 137, 0.2);
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+}
+
+.bodyText {
+  font-size: $font-size-xs;
+  color: $color-secondary-light;
+}
+
+.tipsRow {
+  background-color: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.tipsLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-warning;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.tipsText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-loose;
+}
+
+.stepsRow {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: $spacing-sm;
+  border-top: 1rpx solid $color-divider;
+}
+
+.stepsCount {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}

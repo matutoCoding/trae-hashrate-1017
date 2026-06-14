@@ -1,0 +1,258 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  border-left: 6rpx solid $color-border;
+}
+
+.crux {
+  border-left-color: $color-error;
+  background-color: rgba(245, 63, 63, 0.05);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+.stepIndex {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, $color-primary, $color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-sm;
+}
+
+.stepIndexText {
+  color: $color-text-white;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+}
+
+.cruxBadge {
+  background-color: $color-error;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  margin-right: $spacing-sm;
+}
+
+.cruxText {
+  color: $color-text-white;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.movementType {
+  background-color: rgba(0, 78, 137, 0.3);
+  padding: 4rpx 16rpx;
+  border-radius: $radius-xs;
+  margin-left: auto;
+}
+
+.movementTypeText {
+  color: $color-secondary-light;
+  font-size: $font-size-xs;
+}
+
+.description {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  line-height: $line-height-loose;
+  margin-bottom: $spacing-md;
+}
+
+.bodyPosition {
+  display: flex;
+  background-color: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.positionCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.positionLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-bottom: 4rpx;
+}
+
+.positionValue {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.analysisGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.analysisItem {
+  background-color: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: $spacing-sm $spacing-md;
+}
+
+.analysisLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.analysisValue {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.forceBar {
+  height: 8rpx;
+  background-color: $color-bg-page;
+  border-radius: $radius-xs;
+  margin: 6rpx 0;
+  overflow: hidden;
+}
+
+.forceFill {
+  height: 100%;
+  background: linear-gradient(90deg, $color-success, $color-warning, $color-error);
+  border-radius: $radius-xs;
+}
+
+.forceValue {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+}
+
+.torqueSection {
+  margin-bottom: $spacing-md;
+}
+
+.sectionLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  font-weight: $font-weight-medium;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.torqueRow {
+  display: flex;
+  background-color: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: $spacing-sm;
+}
+
+.torqueItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.torqueLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.torqueValue {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-bold;
+}
+
+.dynamicSection {
+  margin-bottom: $spacing-md;
+}
+
+.dynamicBar {
+  height: 16rpx;
+  background-color: $color-bg-hover;
+  border-radius: $radius-xs;
+  overflow: hidden;
+  margin-top: $spacing-xs;
+}
+
+.dynamicFill {
+  height: 100%;
+  border-radius: $radius-xs;
+}
+
+.low {
+  background-color: $color-error;
+}
+
+.medium {
+  background-color: $color-warning;
+}
+
+.high {
+  background-color: $color-success;
+}
+
+.dynamicValue {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.warningBox {
+  display: flex;
+  align-items: flex-start;
+  background-color: rgba(245, 63, 63, 0.1);
+  border: 1rpx solid rgba(245, 63, 63, 0.3);
+  border-radius: $radius-md;
+  padding: $spacing-sm $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.warningIcon {
+  margin-right: $spacing-sm;
+  font-size: $font-size-md;
+}
+
+.warningText {
+  font-size: $font-size-sm;
+  color: $color-error;
+  flex: 1;
+  line-height: $line-height-normal;
+}
+
+.footNote {
+  background-color: rgba(24, 144, 255, 0.1);
+  border-radius: $radius-md;
+  padding: $spacing-sm $spacing-md;
+}
+
+.footNoteLabel {
+  font-size: $font-size-xs;
+  color: $color-secondary-light;
+  font-weight: $font-weight-medium;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.footNoteText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}

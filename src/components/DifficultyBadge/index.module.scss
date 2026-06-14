@@ -1,0 +1,53 @@
+@use '@/styles/variables.scss' as *;
+
+.badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid;
+  border-radius: $radius-sm;
+  padding: $spacing-xs $spacing-sm;
+  min-width: 80rpx;
+}
+
+.sm {
+  padding: 4rpx 12rpx;
+  min-width: 60rpx;
+}
+
+.md {
+  padding: $spacing-xs $spacing-sm;
+  min-width: 80rpx;
+}
+
+.lg {
+  padding: $spacing-sm $spacing-md;
+  min-width: 100rpx;
+}
+
+.text {
+  color: $color-text-white;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+}
+
+.sm .text {
+  font-size: $font-size-sm;
+}
+
+.lg .text {
+  font-size: $font-size-lg;
+}
+
+.label {
+  color: $color-text-white;
+  font-size: $font-size-xs;
+  opacity: 0.9;
+  margin-top: 2rpx;
+}
+
+.sm .label {
+  display: none;
+}

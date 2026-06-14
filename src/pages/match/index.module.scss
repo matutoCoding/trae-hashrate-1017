@@ -1,0 +1,311 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  padding: $spacing-lg;
+  padding-bottom: 180rpx;
+  box-sizing: border-box;
+}
+
+.pageHeader {
+  margin-bottom: $spacing-lg;
+}
+
+.pageTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.pageSubtitle {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $spacing-xl;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.sectionSubtitle {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.matchCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.matchScoreBadge {
+  position: absolute;
+  top: $spacing-lg;
+  right: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.matchScore {
+  font-size: 48rpx;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.matchScoreLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.suitabilityBadge {
+  position: absolute;
+  top: $spacing-lg;
+  left: $spacing-lg;
+  padding: 6rpx 16rpx;
+  border-radius: $radius-sm;
+}
+
+.suitabilityBadgeText {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.routeHeader {
+  margin-top: 48rpx;
+  margin-bottom: $spacing-md;
+}
+
+.routeName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.routeMeta {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-top: 4rpx;
+}
+
+.successRateSection {
+  margin-bottom: $spacing-md;
+}
+
+.successRateLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.successRateBar {
+  height: 16rpx;
+  background-color: $color-bg-hover;
+  border-radius: $radius-xs;
+  overflow: hidden;
+}
+
+.successRateFill {
+  height: 100%;
+  border-radius: $radius-xs;
+  transition: width 0.5s ease;
+}
+
+.successRateValue {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.matchDetails {
+  background-color: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+}
+
+.matchDetailRow {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.matchDetailIcon {
+  margin-right: $spacing-sm;
+  font-size: $font-size-md;
+}
+
+.matchDetailContent {
+  flex: 1;
+}
+
+.matchDetailLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+}
+
+.matchDetailText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+}
+
+.cruxTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+}
+
+.cruxTag {
+  padding: 4rpx 12rpx;
+  background-color: rgba(245, 63, 63, 0.2);
+  border-radius: $radius-xs;
+}
+
+.cruxTagText {
+  font-size: $font-size-xs;
+  color: $color-error;
+}
+
+.simulationCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+}
+
+.simulationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.simulationTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.simulationRoute {
+  font-size: $font-size-sm;
+  color: $color-primary;
+}
+
+.simulationItem {
+  background-color: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: $spacing-md;
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.simulationItemHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.simulationHeight {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.simulationGrade {
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  background-color: rgba(255, 107, 53, 0.2);
+}
+
+.simulationGradeText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.simulationStats {
+  display: flex;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-sm;
+}
+
+.simulationStat {
+  display: flex;
+  flex-direction: column;
+}
+
+.simulationStatLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.simulationStatValue {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.simulationNotes {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+  padding-top: $spacing-sm;
+  border-top: 1rpx solid $color-divider;
+}
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.filterTag {
+  padding: $spacing-xs $spacing-md;
+  background-color: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+
+  &.active {
+    background-color: rgba(255, 107, 53, 0.2);
+    border-color: $color-primary;
+  }
+}
+
+.filterTagText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  .active & {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}

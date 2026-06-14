@@ -1,0 +1,412 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  padding: $spacing-lg;
+  padding-bottom: 180rpx;
+  box-sizing: border-box;
+}
+
+.pageHeader {
+  margin-bottom: $spacing-lg;
+}
+
+.pageTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.pageSubtitle {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.filterTag {
+  padding: $spacing-xs $spacing-md;
+  background-color: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+
+  &.active {
+    background-color: rgba(255, 107, 53, 0.2);
+    border-color: $color-primary;
+  }
+}
+
+.filterTagText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  .active & {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.formModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.formContent {
+  width: 100%;
+  max-height: 90vh;
+  background-color: $color-bg-page;
+  border-radius: $radius-xl $radius-xl 0 0;
+  padding: $spacing-lg;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+}
+
+.formTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.closeBtn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-round;
+  background-color: $color-bg-card;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtnText {
+  font-size: $font-size-xl;
+  color: $color-text-secondary;
+}
+
+.formGroup {
+  margin-bottom: $spacing-lg;
+}
+
+.formLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.formInput {
+  width: 100%;
+  height: 88rpx;
+  background-color: $color-bg-input;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  padding: 0 $spacing-md;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  box-sizing: border-box;
+}
+
+.formRow {
+  display: flex;
+  gap: $spacing-md;
+
+  .formGroup {
+    flex: 1;
+  }
+}
+
+.gradeSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.gradeOption {
+  width: 96rpx;
+  height: 64rpx;
+  border-radius: $radius-md;
+  background-color: $color-bg-input;
+  border: 2rpx solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &.selected {
+    border-color: $color-primary;
+    background-color: rgba(255, 107, 53, 0.2);
+  }
+}
+
+.gradeOptionText {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text-secondary;
+
+  .selected & {
+    color: $color-primary;
+  }
+}
+
+.tagSelector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.tagOption {
+  padding: $spacing-xs $spacing-md;
+  background-color: $color-bg-input;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+  transition: all $transition-base;
+
+  &.selected {
+    background-color: rgba(0, 78, 137, 0.3);
+    border-color: $color-secondary-light;
+  }
+}
+
+.tagOptionText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  .selected & {
+    color: $color-secondary-light;
+  }
+}
+
+.holdsSection {
+  margin-bottom: $spacing-lg;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.addHoldBtn {
+  padding: $spacing-xs $spacing-md;
+  background-color: rgba(255, 107, 53, 0.2);
+  border-radius: $radius-button;
+}
+
+.addHoldBtnText {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.holdList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.holdEditor {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.holdEditorHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.holdEditorTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.deleteHoldBtn {
+  padding: 4rpx 16rpx;
+  background-color: rgba(245, 63, 63, 0.2);
+  border-radius: $radius-sm;
+}
+
+.deleteHoldBtnText {
+  font-size: $font-size-xs;
+  color: $color-error;
+}
+
+.selectorGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-sm;
+}
+
+.selectorItem {
+  padding: $spacing-sm;
+  background-color: $color-bg-input;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  transition: all $transition-base;
+
+  &.selected {
+    border-color: $color-primary;
+    background-color: rgba(255, 107, 53, 0.15);
+  }
+}
+
+.selectorItemText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-align: center;
+
+  .selected & {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.difficultyResult {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  border: 2rpx solid $color-border;
+}
+
+.difficultyResultTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.difficultyRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.difficultyLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.difficultyValue {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.consistencyBadge {
+  padding: $spacing-xs $spacing-md;
+  border-radius: $radius-button;
+}
+
+.consistencyBadgeText {
+  font-size: $font-size-sm;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.sliderValue {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  min-width: 80rpx;
+  text-align: right;
+}
+
+.slider {
+  flex: 1;
+}
+
+.submitBtn {
+  width: 100%;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $spacing-lg;
+}
+
+.submitBtnText {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-white;
+}
+
+.fab {
+  position: fixed;
+  right: $spacing-lg;
+  bottom: 160rpx;
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: $radius-round;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(255, 107, 53, 0.4);
+  z-index: 100;
+}
+
+.fabText {
+  font-size: 56rpx;
+  color: $color-text-white;
+  font-weight: $font-weight-light;
+  line-height: 1;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.emptyIcon {
+  font-size: 120rpx;
+  margin-bottom: $spacing-lg;
+}
+
+.emptyText {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+}

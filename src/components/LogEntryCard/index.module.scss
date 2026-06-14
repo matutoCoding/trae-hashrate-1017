@@ -1,0 +1,161 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.95;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
+.routeInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.routeName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.status {
+  padding: 6rpx 16rpx;
+  border-radius: $radius-sm;
+}
+
+.statusText {
+  font-size: $font-size-xs;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.date, .attempts {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+.progressLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  width: 80rpx;
+}
+
+.progressBar {
+  flex: 1;
+  height: 12rpx;
+  background-color: $color-bg-hover;
+  border-radius: $radius-xs;
+  margin: 0 $spacing-sm;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: $radius-xs;
+}
+
+.progressValue {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  min-width: 60rpx;
+  text-align: right;
+}
+
+.failRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+  padding: $spacing-sm;
+  background-color: rgba(245, 63, 63, 0.1);
+  border-radius: $radius-md;
+}
+
+.failLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.failPoint {
+  font-size: $font-size-sm;
+  color: $color-error;
+  font-weight: $font-weight-medium;
+}
+
+.failCategory {
+  padding: 2rpx 12rpx;
+  background-color: rgba(250, 173, 20, 0.2);
+  border-radius: $radius-xs;
+}
+
+.failCategoryText {
+  font-size: $font-size-xs;
+  color: $color-warning;
+}
+
+.notesRow {
+  margin-bottom: $spacing-md;
+  padding: $spacing-sm;
+  background-color: $color-bg-hover;
+  border-radius: $radius-md;
+}
+
+.notesText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.statsRow {
+  display: flex;
+  border-top: 1rpx solid $color-divider;
+  padding-top: $spacing-md;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-bottom: 4rpx;
+}
+
+.statValue {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
