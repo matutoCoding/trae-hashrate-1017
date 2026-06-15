@@ -102,8 +102,8 @@ export const mockMovements: MovementBreakdown[] = [
     ],
     overallDifficultyScore: 7.2,
     estimatedGrade: 'V3',
-    cruxSteps: ['第3步、第4步',
-    criticalInjuryRisks: ['第4步死点动作肩袖高负荷'],
+    cruxSteps: ['第3步：交叉脚法右脚横跨', '第4步：死点动作抓握高处小扣点'],
+    criticalInjuryRisks: ['第4步死点动作肩袖高负荷，需充分热身'],
     footSequenceAnalysis: '整体脚点顺序合理，关键在于左脚先上后右脚横跨，最后死点发力，需注意第4步发力前的脚点布置'
   }
 ];

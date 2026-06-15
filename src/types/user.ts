@@ -4,6 +4,7 @@ export interface ClimberProfile {
   height: number;
   armSpan: number;
   apeIndex: number;
+  weight?: number;
   fingerStrength: number;
   coreStrength: number;
   pullStrength: number;

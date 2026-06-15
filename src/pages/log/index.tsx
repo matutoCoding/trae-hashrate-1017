@@ -128,7 +128,6 @@ const LogPage: React.FC = () => {
     };
 
     addTrainingLog(newLog);
-    console.log('[Log] Added training log:', newLog.routeName, newLog.status);
     Taro.showToast({ title: '记录已保存', icon: 'success' });
     setShowForm(false);
   };
@@ -246,7 +245,7 @@ const LogPage: React.FC = () => {
                       <Text className={styles.routeListItemName}>{route.name}</Text>
                       <DifficultyBadge grade={route.grade} size="sm" showLabel={false} />
                     </View>
-                    <Text className={{ fontSize: 24, color: '#86909C' }}>
+                    <Text style={{ fontSize: 24, color: '#86909C' }}>
                       {route.holds.length}点 · {route.wallAngle}°
                     </Text>
                   </View>

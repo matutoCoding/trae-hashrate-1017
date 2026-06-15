@@ -1,4 +1,5 @@
-import { HoldPoint, MovementStep, TorqueAnalysis, BalanceState, InjuryRisk } from '@/types/movement';
+import { HoldPoint } from '@/types/bouldering';
+import { MovementStep, TorqueAnalysis, BalanceState, InjuryRisk } from '@/types/movement';
 
 export const calculateTorque = (
   holdDifficulty: number,
@@ -76,7 +77,7 @@ export const assessInjuryRisk = (
   if (torque.elbowTorque > 120) riskScore += 1;
 
   if (riskScore <= 2) return { risk: 'low' };
-  if (riskScore <= 4) return { risk: 'moderate' };
+  if (riskScore <= 4) return { risk: 'medium' };
 
   const warnings: string[] = [];
   if (torque.shoulderTorque > 150) warnings.push('肩部力矩过高，注意肩袖损伤风险');

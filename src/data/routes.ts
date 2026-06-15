@@ -56,7 +56,7 @@ export const mockRoutes: Route[] = [
     description: '考验脚法和身体平衡的技术线路',
     holds: [
       { id: 'h1', name: 'S1', shape: 'jug', orientation: 'up', type: 'start', x: 30, y: 85, size: 8, holdDifficulty: 1.5 },
-      { id: 'h2', name: 'F1', shape: 'foot', orientation: 'up', type: 'foot', x: 70, y: 50, size: 5, holdDifficulty: 1 },
+      { id: 'h2', name: 'F1', shape: 'edge', orientation: 'up', type: 'foot', x: 70, y: 50, size: 5, holdDifficulty: 1 },
       { id: 'h3', name: 'M1', shape: 'gastron', orientation: 'right', type: 'middle', x: 60, y: 130, size: 4, holdDifficulty: calculateHoldDifficulty('gastron', 'right', 4) },
       { id: 'h4', name: 'M2', shape: 'edge', orientation: 'left', type: 'middle', x: 20, y: 160, size: 5, holdDifficulty: calculateHoldDifficulty('edge', 'left', 5) },
       { id: 'h5', name: 'M3', shape: 'pocket', orientation: 'up', type: 'middle', x: 75, y: 200, size: 3, holdDifficulty: calculateHoldDifficulty('pocket', 'up', 3) },

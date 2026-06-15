@@ -226,7 +226,7 @@ export const mockBetaLibrary: MovementBeta[] = [
     tags: ['balance', 'technique', '新手友好'],
     difficulty: 'beginner',
     bodyType: ['short', 'average', 'tall'],
-    style: ['technique', 'balance'],
+    style: ['technique', 'endurance'],
     likes: 67,
     overallTips: '技术入门线路，不需要很大力量，重点是脚法和身体平衡。',
     steps: [

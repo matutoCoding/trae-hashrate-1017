@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import Taro from '@tarojs/taro';
-import { Route, HoldPoint } from '@/types/bouldering';
+import { Route } from '@/types/bouldering';
 import { MovementBreakdown } from '@/types/movement';
 import { ClimberProfile } from '@/types/user';
 import { TrainingLogEntry, MovementBeta } from '@/types/training';
@@ -18,51 +18,50 @@ const STORAGE_KEYS = {
   BETA: 'bouldering_beta'
 };
 
-const loadFromStorage = async <T>(key: string, defaultValue: T): Promise<T> => {
+const safeGetStorage = <T>(key: string, defaultValue: T): T => {
   try {
-    const data = Taro.getStorageSync(key);
-    if (data) {
-      console.log('[Storage] Loaded from storage:', key);
-      return data as T;
+    if (typeof Taro !== 'undefined' && Taro.getStorageSync) {
+      const data = Taro.getStorageSync(key);
+      if (data !== '' && data !== null && data !== undefined) {
+        if (Array.isArray(data) && data.length === 0) return defaultValue;
+        return data as T;
+      }
     }
   } catch (e) {
-    console.error('[Storage] Load error:', key, e);
+    console.warn('[Storage] Get fallback to default:', key);
   }
   return defaultValue;
 };
 
-const saveToStorage = async <T>(key: string, data: T): Promise<void> => {
+const safeSetStorage = async (key: string, data: any): Promise<void> => {
   try {
-    Taro.setStorageSync(key, data);
-    console.log('[Storage] Saved to storage:', key);
+    if (typeof Taro !== 'undefined' && Taro.setStorageSync) {
+      Taro.setStorageSync(key, data);
+      console.log('[Storage] Saved:', key);
+    }
   } catch (e) {
     console.error('[Storage] Save error:', key, e);
   }
 };
 
-const initializeData = async () => {
+const initializeData = () => {
   try {
-    const routes = Taro.getStorageSync(STORAGE_KEYS.ROUTES);
-    if (!routes || routes.length === 0) {
-      Taro.setStorageSync(STORAGE_KEYS.ROUTES, mockRoutes);
-    }
-    const movements = Taro.getStorageSync(STORAGE_KEYS.MOVEMENTS);
-    if (!movements || movements.length === 0) {
-      Taro.setStorageSync(STORAGE_KEYS.MOVEMENTS, mockMovements);
-    }
-    const user = Taro.getStorageSync(STORAGE_KEYS.USER);
-    if (!user) {
-      Taro.setStorageSync(STORAGE_KEYS.USER, mockCurrentUser);
-    }
-    const logs = Taro.getStorageSync(STORAGE_KEYS.LOGS);
-    if (!logs || logs.length === 0) {
-      Taro.setStorageSync(STORAGE_KEYS.LOGS, mockLogs);
-    }
-    const beta = Taro.getStorageSync(STORAGE_KEYS.BETA);
-    if (!beta || beta.length === 0) {
-      Taro.setStorageSync(STORAGE_KEYS.BETA, mockBetaLibrary);
-    }
-    console.log('[Storage] Initial data loaded');
+    const routes = safeGetStorage(STORAGE_KEYS.ROUTES, []);
+    if (!routes || routes.length === 0) safeSetStorage(STORAGE_KEYS.ROUTES, mockRoutes);
+
+    const movements = safeGetStorage(STORAGE_KEYS.MOVEMENTS, []);
+    if (!movements || movements.length === 0) safeSetStorage(STORAGE_KEYS.MOVEMENTS, mockMovements);
+
+    const user = safeGetStorage(STORAGE_KEYS.USER, null);
+    if (!user) safeSetStorage(STORAGE_KEYS.USER, mockCurrentUser);
+
+    const logs = safeGetStorage(STORAGE_KEYS.LOGS, []);
+    if (!logs || logs.length === 0) safeSetStorage(STORAGE_KEYS.LOGS, mockLogs);
+
+    const beta = safeGetStorage(STORAGE_KEYS.BETA, []);
+    if (!beta || beta.length === 0) safeSetStorage(STORAGE_KEYS.BETA, mockBetaLibrary);
+
+    console.log('[Storage] Initial data check complete');
   } catch (e) {
     console.error('[Storage] Init error:', e);
   }
@@ -99,44 +98,41 @@ interface BoulderingState {
 }
 
 export const useBoulderingStore = create<BoulderingState>((set, get) => ({
-  routes: Taro.getStorageSync(STORAGE_KEYS.ROUTES) || mockRoutes,
-  movements: Taro.getStorageSync(STORAGE_KEYS.MOVEMENTS) || mockMovements,
-  currentUser: Taro.getStorageSync(STORAGE_KEYS.USER) || mockCurrentUser,
-  trainingLogs: Taro.getStorageSync(STORAGE_KEYS.LOGS) || mockLogs,
-  betaLibrary: Taro.getStorageSync(STORAGE_KEYS.BETA) || mockBetaLibrary,
+  routes: safeGetStorage(STORAGE_KEYS.ROUTES, mockRoutes),
+  movements: safeGetStorage(STORAGE_KEYS.MOVEMENTS, mockMovements),
+  currentUser: safeGetStorage(STORAGE_KEYS.USER, mockCurrentUser),
+  trainingLogs: safeGetStorage(STORAGE_KEYS.LOGS, mockLogs),
+  betaLibrary: safeGetStorage(STORAGE_KEYS.BETA, mockBetaLibrary),
   currentRoute: null,
   currentMovement: null,
   isInitialized: true,
 
   initData: () => {
     set({
-      routes: Taro.getStorageSync(STORAGE_KEYS.ROUTES) || mockRoutes,
-      movements: Taro.getStorageSync(STORAGE_KEYS.MOVEMENTS) || mockMovements,
-      currentUser: Taro.getStorageSync(STORAGE_KEYS.USER) || mockCurrentUser,
-      trainingLogs: Taro.getStorageSync(STORAGE_KEYS.LOGS) || mockLogs,
-      betaLibrary: Taro.getStorageSync(STORAGE_KEYS.BETA) || mockBetaLibrary
+      routes: safeGetStorage(STORAGE_KEYS.ROUTES, mockRoutes),
+      movements: safeGetStorage(STORAGE_KEYS.MOVEMENTS, mockMovements),
+      currentUser: safeGetStorage(STORAGE_KEYS.USER, mockCurrentUser),
+      trainingLogs: safeGetStorage(STORAGE_KEYS.LOGS, mockLogs),
+      betaLibrary: safeGetStorage(STORAGE_KEYS.BETA, mockBetaLibrary)
     });
   },
 
   addRoute: (route) => {
     const newRoutes = [...get().routes, route];
     set({ routes: newRoutes });
-    saveToStorage(STORAGE_KEYS.ROUTES, newRoutes);
-    console.log('[Store] Route added:', route.name);
+    safeSetStorage(STORAGE_KEYS.ROUTES, newRoutes);
   },
 
   updateRoute: (id, route) => {
     const newRoutes = get().routes.map(r => r.id === id ? { ...r, ...route } : r);
     set({ routes: newRoutes });
-    saveToStorage(STORAGE_KEYS.ROUTES, newRoutes);
-    console.log('[Store] Route updated:', id);
+    safeSetStorage(STORAGE_KEYS.ROUTES, newRoutes);
   },
 
   deleteRoute: (id) => {
     const newRoutes = get().routes.filter(r => r.id !== id);
     set({ routes: newRoutes });
-    saveToStorage(STORAGE_KEYS.ROUTES, newRoutes);
-    console.log('[Store] Route deleted:', id);
+    safeSetStorage(STORAGE_KEYS.ROUTES, newRoutes);
   },
 
   setCurrentRoute: (route) => set({ currentRoute: route }),
@@ -146,19 +142,17 @@ export const useBoulderingStore = create<BoulderingState>((set, get) => ({
     let newMovements;
     if (existingIndex >= 0) {
       newMovements = get().movements.map((m, i) => i === existingIndex ? movement : m);
-      console.log('[Store] Movement updated for route:', movement.routeId);
     } else {
       newMovements = [...get().movements, movement];
-      console.log('[Store] Movement added:', movement.routeName);
     }
     set({ movements: newMovements });
-    saveToStorage(STORAGE_KEYS.MOVEMENTS, newMovements);
+    safeSetStorage(STORAGE_KEYS.MOVEMENTS, newMovements);
   },
 
   updateMovement: (id, movement) => {
     const newMovements = get().movements.map(m => m.id === id ? { ...m, ...movement } : m);
     set({ movements: newMovements });
-    saveToStorage(STORAGE_KEYS.MOVEMENTS, newMovements);
+    safeSetStorage(STORAGE_KEYS.MOVEMENTS, newMovements);
   },
 
   setCurrentMovement: (movement) => set({ currentMovement: movement }),
@@ -166,27 +160,24 @@ export const useBoulderingStore = create<BoulderingState>((set, get) => ({
   updateUserProfile: (profile) => {
     const newUser = { ...get().currentUser, ...profile };
     set({ currentUser: newUser });
-    saveToStorage(STORAGE_KEYS.USER, newUser);
-    console.log('[Store] User profile updated');
+    safeSetStorage(STORAGE_KEYS.USER, newUser);
   },
 
   addTrainingLog: (log) => {
     const newLogs = [log, ...get().trainingLogs];
     set({ trainingLogs: newLogs });
-    saveToStorage(STORAGE_KEYS.LOGS, newLogs);
-    console.log('[Store] Training log added:', log.routeName);
+    safeSetStorage(STORAGE_KEYS.LOGS, newLogs);
   },
 
   deleteTrainingLog: (id) => {
     const newLogs = get().trainingLogs.filter(l => l.id !== id);
     set({ trainingLogs: newLogs });
-    saveToStorage(STORAGE_KEYS.LOGS, newLogs);
+    safeSetStorage(STORAGE_KEYS.LOGS, newLogs);
   },
 
   addBeta: (beta) => {
     const newBeta = [beta, ...get().betaLibrary];
     set({ betaLibrary: newBeta });
-    saveToStorage(STORAGE_KEYS.BETA, newBeta);
-    console.log('[Store] Beta added:', beta.title);
+    safeSetStorage(STORAGE_KEYS.BETA, newBeta);
   }
 }));
